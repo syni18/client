@@ -74,7 +74,7 @@ const Navigation = () => {
         {/* Left Section */}
         <div className="container-left">
           <a href="/" className="brand-logo">
-            ClearEyeCare
+            MenSignicher
           </a>
         </div>
         {/* Middle Section */}
