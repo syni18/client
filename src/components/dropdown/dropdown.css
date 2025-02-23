@@ -64,3 +64,25 @@
   color: #f1f3f6 !important;
   fill: #59839d;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .auth-dropdown-wrapper {
+    position: absolute; /* Change position for mobile */
+    max-width: 100%; /* Full width on smaller screens */
+    padding: 0px; /* Adjust padding for smaller screens */
+    right: 45px;
+    top: 52px;
+    /* border: 1px solid black; */
+  }
+  
+  .auth-dropdown-container {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-dropdown-container {
+    font-size: 12px; /* Further adjust font size for very small screens */
+  }
+}

@@ -1,13 +1,19 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import "./navigation.css";
-import { debounce } from "lodash";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthDropdown from "../dropdown/Dropdown";
 import { fetchSearchProducts, getCartItems } from "../../helper/helper.js";
 import { Cog, Search, ShoppingCart, User } from "lucide-react";
 import useCartStore from "../../redux/store/cartStore.js";
 import useUserStore from "../../redux/store/userStore.js";
+import SearchButton from "../../miniComponent/SearchButton.jsx";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -15,14 +21,14 @@ const Navigation = () => {
   const { cartCount, setCartItems } = useCartStore();
 
   const hasFetchedCart = useRef(false);
-  
-    // Fetch cart items (only once)
+
+  // Fetch cart items (only once)
   useEffect(() => {
     if (!hasFetchedCart.current) {
       hasFetchedCart.current = true; // Mark as fetched
       const fetchCartItems = async () => {
         try {
-          const response = await getCartItems();          
+          const response = await getCartItems();
           setCartItems(response.cart.items);
         } catch (error) {
           console.error("Failed to fetch cart items:", error);
@@ -31,17 +37,17 @@ const Navigation = () => {
       fetchCartItems();
     }
     console.log("cart count ", cartCount);
-  }, [setCartItems])
+  }, [setCartItems]);
 
- const { user, loading, error } = useUserStore((state) => ({
-   user: state.user,
-   loading: state.loading,
-   error: state.error,
- }));
+  const { user, loading, error } = useUserStore((state) => ({
+    user: state.user,
+    loading: state.loading,
+    error: state.error,
+  }));
 
   const [dropdownVisible, setDropdownVisible] = useState(true);
   const [searchInput, setSearchInput] = useState("");
-  
+
   const handleSearch = useCallback(async () => {
     if (!searchInput.trim()) return;
     try {
@@ -68,14 +74,22 @@ const Navigation = () => {
   const userRole = user?.role || "guest";
   const username = user?.fullname || "";
 
+  const brandLogoText = import.meta.env.VITE_BRAND_LOGO_TEXT;
+  const brandInitial = brandLogoText.charAt(0); // Get the first character
+
   return (
     <nav className="nav-wrapper">
       <div className="nav-container">
         {/* Left Section */}
         <div className="container-left">
-          <a href="/" className="brand-logo">
-            MenSignicher
-          </a>
+          <Link
+            to={"/"}
+            className="brand-logo"
+            data-initial={brandInitial}
+            data-text={brandLogoText}
+          >
+            {brandLogoText}
+          </Link>
         </div>
         {/* Middle Section */}
         <div className="container-middle">
@@ -93,11 +107,12 @@ const Navigation = () => {
         </div>
         {/* Right Section */}
         <div className="container-right">
-          <SearchComponent
+          <SearchButton 
             searchInput={searchInput}
             setSearchInput={setSearchInput}
             handleSearch={handleSearch}
           />
+         
           {userRole === "admin" && (
             <div className="nav-console">
               <Cog />
@@ -120,7 +135,6 @@ const Navigation = () => {
     </nav>
   );
 };
-
 
 export default Navigation;
 
@@ -151,47 +165,10 @@ const Dropdown = ({ category, items, visible, toggleDropdown }) => {
   );
 };
 
-
-
-
-const SearchComponent = ({ searchInput, setSearchInput, handleSearch }) => {
-  const debouncedHandleSearch = useMemo(
-    () => debounce(handleSearch, 300),
-    [handleSearch]
-  );
-
-  useEffect(() => {
-    return () => debouncedHandleSearch.cancel(); // Cleanup debounce on unmount
-  }, [debouncedHandleSearch]);
-
-  return (
-    <div className="nav-search">
-      <input
-        type="search"
-        className="search-input"
-        placeholder="Search products..."
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && searchInput.trim() !== "") {
-            debouncedHandleSearch();
-          }
-        }}
-      />
-      <button onClick={debouncedHandleSearch} className="search-label">
-        <Search />
-      </button>
-    </div>
-  );
-};
-
-
 const ProfileComponent = ({ isAuthorized, open, setOpen, username }) => (
   <div className="nav-profile" onClick={() => setOpen(!open)}>
     {isAuthorized ? (
-      <div className="user-auth-icon">
-        {username.slice(0,2).toUpperCase()}
-      </div>
+      <div className="user-auth-icon">{username.slice(0, 2).toUpperCase()}</div>
     ) : (
       <User />
     )}
@@ -341,4 +318,3 @@ const chunkItems = (items, size) => {
   }
   return chunks;
 };
-
