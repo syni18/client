@@ -101,7 +101,7 @@
 
 .container-right {
   display: flex;
-  flex-grow: 0.75;
+  flex-grow: 0.5;
   justify-content: flex-end;
 }
 
