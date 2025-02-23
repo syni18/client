@@ -24,7 +24,7 @@ const SearchButton = ({ searchInput, setSearchInput, handleSearch }) => {
         border border-[--border] bg-[--background] 
         text-[--color] px-4 py-2 justify-start 
         rounded-[0.5rem] text-sm font-normal shadow-none 
-        h-8 lg:w-full sm:w-40"
+        h-8 xl:w-72 lg:50 sm:w-40"
       type="button"
     >
       <input
