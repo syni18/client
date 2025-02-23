@@ -37,7 +37,7 @@ const SearchButton = ({ searchInput, setSearchInput, handleSearch }) => {
             debouncedHandleSearch();
           }
         }}
-        className={`outline-none inline-flex`}
+        className={`outline-none inline-flex bg-transparent`}
       />
       <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] flex h-5 select-none items-center gap-1 rounded px-1.5 font-mono text-[10px] font-medium opacity-100 [&_span]:text-xs sm:flex">
         <span>⌘</span>K
