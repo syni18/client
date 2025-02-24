@@ -22,9 +22,9 @@ const SearchButton = ({ searchInput, setSearchInput, handleSearch }) => {
         focus-visible:ring-1 focus-visible:ring-ring 
         disabled:pointer-events-none disabled:opacity-50 
         border border-[--border] bg-[--background] 
-        text-[--color] px-4 py-2 justify-start 
+        text-[--color] px-4 py-2 justify-between 
         rounded-[0.5rem] text-sm font-normal shadow-none 
-        h-8 w-60 sm:w-40"
+        h-8 w-full lg:w-72 md:w-52 sm:w-40"
       type="button"
     >
       <input
@@ -37,9 +37,17 @@ const SearchButton = ({ searchInput, setSearchInput, handleSearch }) => {
             debouncedHandleSearch();
           }
         }}
-        className={`outline-none inline-flex bg-transparent w-44 text-[16px] overflow-hidden`}
+        className={`outline-none inline-flex bg-transparent w-full text-[16px] overflow-hidden sm:w-full md:w-32 lg:w-60 pr-5`}
       />
-      <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] flex h-5 select-none items-center gap-1 rounded px-1.5 font-mono text-[10px] font-medium opacity-100 [&_span]:text-xs sm:flex">
+      <kbd
+        className="pointer-events-auto cursor-pointer absolute
+        right-[0.3rem] top-[0.3rem] flex h-5 select-none
+        items-center gap-1 rounded px-1.5 font-mono 
+        text-[10px] font-medium opacity-100 [&_span]:text-sm 
+        border border-[--muted-foreground] text-[--border] bg-[--background] 
+        sm:flex"
+        onClick={debouncedHandleSearch}
+      >
         <span>➤</span>
       </kbd>
     </div>
