@@ -10,6 +10,8 @@ const BagItem = ({
   decreaseQuantity,
   removeFromCart,
 }) => {
+  console.log("item :", item);
+  
   const [options, setOptions] = useState({
     size: "XL",
     color: "Blue",
@@ -62,7 +64,7 @@ const BagItem = ({
             <div className="rt-top-left">
               <span className="top-lt-name">{item.productId.title}</span>
               <div className="top-lt-det">
-                <span className="lt-det-price">${item.price}</span>
+                <span className="lt-det-price">${item.productId.price}</span>
                 <span className="lt-det-break">|</span>
                 <span className="lt-det-rating">
                   {item.productId.rating}
@@ -76,7 +78,7 @@ const BagItem = ({
                 <span className="lt-det-stock">In Stock</span>
               </div>
             </div>
-            <span className="rt-top-right">${item.price}</span>
+            <span className="rt-top-right">${item.productId.price}</span>
           </div>
           {/* Bottom Section: Options */}
           <div className="ct-rt-bottom">
