@@ -52,7 +52,7 @@ const Navigation = () => {
     if (!searchInput.trim()) return;
     try {
       const response = await fetchSearchProducts(searchInput.trim());
-      if (response.status === 200) {
+      if (response.status === true) {
         const data = await response.data;
         navigate("/search-items", { state: { products: data } });
       } else {
