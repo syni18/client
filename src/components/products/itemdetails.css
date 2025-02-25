@@ -76,17 +76,12 @@
     width: 80px;
     justify-content: space-between;
 }
-.item-category-watchlist .item-watchlist-btn-,
-.item-category-watchlist .item-watchlist-btn-active,
+.item-category-watchlist .pd-wishlist-addicon,
 .item-category-watchlist .item-share-btn{
     cursor: pointer;
 }
-.item-watchlist-btn-active {
-  color: red;
-  fill: red;
-}
-.item-category-watchlist .item-watchlist-btn- {
-    fill: #d3d3d3;
+
+.item-category-watchlist .pd-wishlist-addicon {
     color: #d3d3d3;
     
 }
@@ -105,10 +100,10 @@
     transform: scale( 1 );
   }
 }
-.item-category-watchlist .item-watchlist-btn-:hover {
-    color: red;
+.item-category-watchlist .pd-wishlist-addicon:hover {
     fill: red;
-    animation: heartbeat 10ms ease-in-out;
+    stroke: red;
+    animation: heartbeat 200ms ease-in;
 }
 
 .item-desc .item-desc-heading {

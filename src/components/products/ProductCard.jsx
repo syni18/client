@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./productcard.css";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/action/cartAction";
+import useCartStore from "../../redux/store/cartStore";
 
 
 
 function ProductCard({item}) {
-  const dispatch = useDispatch();
+  const { addToCart } = useCartStore();
 
-  const handleAddToCart = (e) => {
-    e.preventDefault(); // Prevent the default anchor action
-    // Dispatch the addToCart action with the item as its payload
-    dispatch(
-      addToCart({
-        ...item,
-        quantity: 1, // Assuming you want to add 1 quantity of the item, adjust accordingly
-      })
-    );
-  };
+  const handleAddToCart = useCallback(
+    async (item) => {      
+      console.log("watchlist :", item);
+      
+      addToCart(item);
+      const data = {
+        productId: item._id,
+        title: item.title,
+        price: item.price,
+        quantity: 1,
+        thumbnail: item.thumbnail,
+        category: item.category,
+        description: item.description,
+      }
+      const cartItems = await addProductToCart(data);
+    },
+    [addToCart]
+  );
   
   return (
     <div className="productcard-wrapper">

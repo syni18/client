@@ -6,7 +6,12 @@ import RatingReview from "../ratings&reviews/RatingReview";
 import RecommandProduct from "./RecommandProduct";
 import { useNavigate, useParams } from "react-router-dom";
 import SizeChart from "../sizechart/SizeChart";
-import { fetchProductsById } from "../../helper/helper";
+import {
+  addProductToCart,
+  addToWishlists,
+  fetchProductsById,
+  removeFromWishlists,
+} from "../../helper/helper";
 import { useQuery } from "react-query";
 import useWatchlistStore, {
   useWishlistStore,
@@ -23,7 +28,8 @@ function ItemDetails() {
   const [selectedImage, setSelectedImage] = useState("");
   const [isSharePopupVisible, setIsSharePopupVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { wishlists, addItemWishlists, removeItemWishlists } = useWishlistStore();
+  const { wishlists, addItemWishlists, removeItemWishlists } =
+    useWishlistStore();
   const { cartItems, addToCart } = useCartStore();
 
   // Define color and size options
@@ -39,8 +45,6 @@ function ItemDetails() {
     cacheTime: 300000,
     refetchOnWindowFocus: false,
   });
-
-  
 
   const product = response?.item || {};
 
@@ -65,23 +69,43 @@ function ItemDetails() {
   const closePopup = useCallback(() => setIsOpen(false), []);
 
   const handleToggleWatchlist = useCallback(
-    (product) => {
+    async (product) => {
       if (!product || !product._id) return;
-      const isItemInWatchlist = wishlists.some(
-        (item) => item.productId === product._id
-      );
-      if (isItemInWatchlist) {
-        console.log(`Removing product ${product._id} from watchlist`);
-        removeItemWishlists(product._id);
-      } else {
-        console.log(`Adding product ${product._id} to watchlist`);
-        addItemWishlists(product._id);
+
+      const { _id } = product;
+      const isItemInWishlist = wishlists.some((item) => item === _id);
+
+      try {
+        if (isItemInWishlist) {
+          await removeFromWishlists(_id);
+          removeItemWishlists(_id);
+        } else {const handleToggleWatchlist = useCallback(
+          async (product) => {
+            if (!product || !product._id) return;
+            const isItemInWishlist = wishlists.some(
+              (item) => item === product._id
+            );
+            if (isItemInWishlist) {
+              await removeFromWishlists(product._id);
+              removeItemWishlists(product._id);
+            } else {
+              await addToWishlists(product._id);
+              addItemWishlists(product._id);
+            }
+          },
+          [wishlists, addItemWishlists, removeItemWishlists]
+        );
+          await addToWishlists(_id);
+          addItemWishlists(_id);
+        }
+      } catch (error) {
+        console.error("Error toggling wishlist:", error);
       }
     },
     [wishlists, addItemWishlists, removeItemWishlists]
   );
 
-  const handleAddToCart = useCallback(() => {
+  const handleAddToCart = useCallback(async () => {
     if (buttonText === "Add to Cart") {
       addToCart({
         ...product,
@@ -89,6 +113,16 @@ function ItemDetails() {
         color: selectedColor,
         size: selectedSize,
       });
+      const data = {
+        productId: product._id,
+        title: product.title,
+        price: product.price,
+        quantity: quantity,
+        thumbnail: product.thumbnail,
+        category: product.category,
+        description: product.description,
+      };
+      await addProductToCart(data);
       setButtonText("Move to Cart");
     } else {
       navigate("/cart");
@@ -103,8 +137,18 @@ function ItemDetails() {
     navigate,
   ]);
 
-  const handleBuyNow = useCallback(() => {
+  const handleBuyNow = useCallback(async () => {
     addToCart({ ...product, quantity: 1 });
+    const data = {
+      productId: product._id,
+      title: product.title,
+      price: product.price,
+      quantity: 1,
+      thumbnail: product.thumbnail,
+      category: product.category,
+      description: product.description,
+    };
+    await addProductToCart(data);
     navigate("/cart");
   }, [addToCart, product, navigate]);
 
@@ -120,7 +164,7 @@ function ItemDetails() {
       setSelectedSize(product.size || sizeOptions[0]);
       setSelectedImage(product.images[0]);
     }
-  }, [product]);
+  }, [product, colorOptions, sizeOptions]);
 
   // useEffect to check if cartItems is empty and update state accordingly
   useEffect(() => {
