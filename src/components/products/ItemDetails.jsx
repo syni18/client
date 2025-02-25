@@ -77,11 +77,11 @@ function ItemDetails() {
 
       try {
         if (isItemInWishlist) {
-          await removeFromWishlists(_id);
           removeItemWishlists(_id);
+          await removeFromWishlists(_id);
         } else {
-          await addToWishlists(_id);
           addItemWishlists(_id);
+          await addToWishlists(_id);
         }
       } catch (error) {
         console.error("Error toggling wishlist:", error);
