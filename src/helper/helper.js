@@ -9,7 +9,7 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
 export async function signupWithGoogle(){
   window.location.href =
     `${import.meta.env.VITE_SERVER_URL}/v1/api/auth/google`;
-  signupWithGoogleCallback()
+  // signupWithGoogleCallback()
 }
 export async function signupWithGoogleCallback() {
   await axios.get('/v1/api/auth/google/callback');
