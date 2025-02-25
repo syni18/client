@@ -79,22 +79,7 @@ function ItemDetails() {
         if (isItemInWishlist) {
           await removeFromWishlists(_id);
           removeItemWishlists(_id);
-        } else {const handleToggleWatchlist = useCallback(
-          async (product) => {
-            if (!product || !product._id) return;
-            const isItemInWishlist = wishlists.some(
-              (item) => item === product._id
-            );
-            if (isItemInWishlist) {
-              await removeFromWishlists(product._id);
-              removeItemWishlists(product._id);
-            } else {
-              await addToWishlists(product._id);
-              addItemWishlists(product._id);
-            }
-          },
-          [wishlists, addItemWishlists, removeItemWishlists]
-        );
+        } else {
           await addToWishlists(_id);
           addItemWishlists(_id);
         }
