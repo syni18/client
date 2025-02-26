@@ -119,6 +119,9 @@
   .tdhead-label {
     font-size: 1em; 
   }
+  .product-wishlist-add {
+    padding: 0.3em; /* Reduce padding for smaller screens */
+  }
     .home-page-container {
         width: 98%; /* Increase width for smaller screens */
     }
@@ -134,6 +137,9 @@
   }
   .tdhead-label {
     font-size: 1.2em; 
+  }
+  .product-wishlist-add {
+    padding: 0.3em; /* Reduce padding for smaller screens */
   }
     .home-page-container {
         width: 98%; /* Further increase width for very small screens */
