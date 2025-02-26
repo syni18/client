@@ -125,7 +125,7 @@
 
 @media (max-width: 576px) {
   .product {
-    max-width: 175px;
+    max-width: 180px;
     font-size: 0.9em;
   }
   .tdhead-label {
