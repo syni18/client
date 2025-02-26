@@ -112,6 +112,10 @@
 }
 
 @media (max-width: 768px) {
+  .product {
+    max-width: 180px;
+    font-size: 0.9em;
+  }
   .tdhead-label {
     font-size: 1em; 
   }
