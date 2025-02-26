@@ -39,7 +39,7 @@
 .product-grids {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Default to five columns */
-    gap: 5px;
+    gap: 1px;
     margin-top: 0.5rem;
 }
 
@@ -116,7 +116,7 @@
     font-size: 1em; 
   }
     .home-page-container {
-        width: 90%; /* Increase width for smaller screens */
+        width: 95%; /* Increase width for smaller screens */
     }
     .product-grids {
         grid-template-columns: repeat(2, 1fr); /* Two columns for mobile devices */
@@ -125,14 +125,14 @@
 
 @media (max-width: 576px) {
   .product {
-    max-width: 170px;
+    max-width: 175px;
     font-size: 0.9em;
   }
   .tdhead-label {
-    font-size: 1em; 
+    font-size: 1.2em; 
   }
     .home-page-container {
-        width: 95%; /* Further increase width for very small screens */
+        width: 98%; /* Further increase width for very small screens */
     }
     .product-grids {
         grid-template-columns: repeat(2, 1fr); /* One column for small mobile devices */
