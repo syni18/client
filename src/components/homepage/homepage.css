@@ -113,14 +113,14 @@
 
 @media (max-width: 768px) {
   .product {
-    max-width: 180px;
+    max-width: 175px;
     font-size: 0.9em;
   }
   .tdhead-label {
     font-size: 1em; 
   }
     .home-page-container {
-        width: 95%; /* Increase width for smaller screens */
+        width: 98%; /* Increase width for smaller screens */
     }
     .product-grids {
         grid-template-columns: repeat(2, 1fr); /* Two columns for mobile devices */
@@ -129,7 +129,7 @@
 
 @media (max-width: 576px) {
   .product {
-    max-width: 180px;
+    max-width: 175px;
     font-size: 0.9em;
   }
   .tdhead-label {
@@ -139,6 +139,7 @@
         width: 98%; /* Further increase width for very small screens */
     }
     .product-grids {
+      /* gap: 1px; */
         grid-template-columns: repeat(2, 1fr); /* One column for small mobile devices */
     }
 }
