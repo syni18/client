@@ -214,6 +214,22 @@
     max-height: 200px;
   }
 
+   .btl-size-dropdown,
+  .btl-color-dropdown {
+    padding: 0.25rem 2.5rem 0.25rem 0.5rem; /* Increase right padding */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #495057;
+    background-color: #fff;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    z-index: 1;
+    width: 100%; /* Make dropdowns full width */
+  }
+  
   .bgt-ct-right {
     flex: 1;
     display: flex;
@@ -349,5 +365,92 @@
   .btl-qty-selector {
     justify-content: center;
     /* margin-top: 0.5rem; */
+  }
+}
+
+/* Media Queries for Small Screens */
+@media (max-width: 768px) {
+  .top-lt-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .top-lt-det {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex; /* Use flexbox for layout */
+    justify-content: flex-start; /* Align content to the start */
+    align-items: center; /* Vertically center the items */
+  }
+
+  .lt-det-price {
+    display: none; /* Hide the price */
+  }
+
+  .lt-det-break {
+    display: none; /* Hide the break lines */
+  }
+
+  .lt-det-rating {
+    display: flex; /* Use flexbox for rating and star */
+    align-items: center; /* Align items vertically */
+  }
+
+  .rt-top-right {
+    text-align: left; /* Align text to the left */
+  }
+
+  .rt-bottom-left {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Align items in a row */
+    gap: 0.5rem; /* Add space between items */
+    align-items: center; /* Vertically center the items */
+    justify-content: space-between; /* Distribute items evenly */
+  }
+
+  .ct-lt-imgcard {
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Adjust height to content */
+    max-height: 150px; /* Limit the maximum height */
+  }
+
+  .btl-size-dropdown,
+  .btl-color-dropdown {
+    padding: 0.25rem 2.5rem 0.25rem 1.0rem; /* Increase right padding */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #495057;
+    background-color: #fff;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    z-index: 1;
+    flex: 1; /* Allow dropdowns to grow and fill space */
+  }
+
+  .rtb-left-size::after,
+  .rtb-left-color::after {
+    content: "▼";
+    position: absolute;
+    right: 0.75rem; /* Adjust position for more space */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #888;
+    pointer-events: none;
+    background-color: transparent;
+    border: none;
+    z-index: 2;
+  }
+
+  .btl-qty-selector {
+    display: flex;
+    justify-content: space-between; /* Space out buttons and display */
+    align-items: center;
+    flex: 1; /* Allow quantity selector to grow and fill space */
   }
 }
