@@ -2,45 +2,35 @@ import { useEffect, useRef, useState } from "react";
 import "./shopingbag.css";
 import "./billingaddress.css";
 import BagItem from "./BagItem";
-import CouponModal from "../coupons-offers/CouponModal";
 import EmptyCart from "../empty/EmptyCart";
 import { useNavigate } from "react-router-dom";
-import {
-  ArrowBigLeft,
-  ArrowBigRight,
-  Check,
-  Info,
-  Pen,
-  Phone,
-  SquarePen,
-  Truck,
-  User,
-} from "lucide-react";
-import NewAddress from "../address/NewAddress";
-import { fetchAddress, getCouponsToShow, setDefaultAddress, createOrderCF } from "../../helper/helper";
+import { SquarePen, Phone, Truck, User, Info } from "lucide-react";
+import { fetchAddress, createOrderCF } from "../../helper/helper";
 import useCartStore from "../../redux/store/cartStore";
 import { useAddressStore } from "../../redux/store/addressStore";
 import AddressModal from "../address/AddressModal";
 
 function ShoppingBag() {
   const navigate = useNavigate();
-  const { addresses, defaultAddress, setAddresses, setDefaultAddress, updateAddress } = useAddressStore();
   const {
-    cartItems,
-    increaseQuantity,
-    decreaseQuantity,
-    removeFromCart
-  } = useCartStore();
+    addresses,
+    defaultAddress,
+    setAddresses,
+    setDefaultAddress,
+    updateAddress,
+  } = useAddressStore();
+  const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } =
+    useCartStore();
 
   const hasFetchedAddresses = useRef(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
-  // Fetch addresses (only once)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     if (!hasFetchedAddresses.current) {
-      hasFetchedAddresses.current = true; // Mark as fetched
+      hasFetchedAddresses.current = true;
       const fetchAddresses = async () => {
         try {
-          const response = await fetchAddress();          
+          const response = await fetchAddress();
           setAddresses(response.addressList.addresses);
           setDefaultAddress(response.addressList.defaultAddress);
         } catch (error) {
@@ -49,26 +39,25 @@ function ShoppingBag() {
       };
       fetchAddresses();
     }
-  }, [setAddresses]); 
+  }, [setAddresses]);
 
- // subtotal
   const subtotal = cartItems
     .reduce((acc, item) => acc + item.productId.price * item.quantity, 0)
     .toFixed(2);
-  
-  const handleCreateOrder =async () => {
-    // TODO: Implement order creation logic
-    // subTotal, final cart items, currency, total, address, user, 
+
+  const handleCreateOrder = async () => {
     const cf = await createOrderCF(amount, cartItems, subtotal, defaultAddress);
     navigate("/order");
-  }
-  // Check if cart is empty
+  };
+
   if (cartItems.length === 0) {
     return <EmptyCart />;
   }
+
   const handleAddressSaved = (address) => {
     updateAddress(address);
   };
+
   return (
     <div className="sb-wrapper">
       <div className="sb-container">
@@ -176,7 +165,11 @@ function ShoppingBag() {
                 <span>${subtotal}</span>
               </div>
               <div className="csr-btn-chkout">
-                <button type="button" className="btn-checkout" onClick={handleCreateOrder}>
+                <button
+                  type="button"
+                  className="btn-checkout"
+                  onClick={handleCreateOrder}
+                >
                   Proceed to checkout
                 </button>
                 <button type="button" className="btn-more-shop">

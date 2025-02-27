@@ -22,6 +22,7 @@
     /* border: 1px solid black; */
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
     /* position: relative; */
 }
 .sb-cartset .sb-cartset-left{
@@ -244,4 +245,56 @@
 .csr-btn-chkout .btn-checkout{
     color: #fff;
     background-color: #59839d;
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+    .sb-cartset {
+        align-items: normal;
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .sb-cartset .sb-cartset-left {
+        flex: 1;
+        margin-bottom: 1rem; /* Add some space below the left section */
+    }
+
+    .sb-cartset .sb-cartset-right {
+        flex: 1;
+        margin: 0; /* Remove margin to align with the left section */
+    }
+}
+
+/* Media Queries for Very Small Screens */
+@media (max-width: 576px) {
+    .sb-container {
+        width: 95%; /* Increase width to use more screen space */
+    }
+
+    .sbc-header label {
+        font-size: 20px; /* Reduce font size for smaller screens */
+    }
+
+    .sb-cartset .sb-cartset-left,
+    .sb-cartset .sb-cartset-right {
+        flex: 1;
+        margin: 0;
+    }
+
+    .sb-cartset .sb-cartset-right {
+        margin-bottom: 1rem;
+    }
+
+    .csr-container .csr-deliver,
+    .csr-container .csr-promo,
+    .csr-container .csr-calc,
+    .csr-container .csr-total,
+    .csr-container .csr-btn-chkout {
+        margin: 0.5rem 0; /* Reduce margins for compact layout */
+    }
+
+    .csr-btn-chkout button {
+        font-size: 14px; /* Increase button font size for better readability */
+        padding: 10px 20px; /* Adjust padding for touch targets */
+    }
 }

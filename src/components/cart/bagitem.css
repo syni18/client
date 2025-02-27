@@ -13,16 +13,18 @@
   display: flex;
   gap: 1rem;
   margin: 0.75rem;
+  flex-wrap: wrap;
 }
 
 /* Left Section: Product Image */
 .bgt-ct-left {
-  flex: 0.15;
+  flex: 0 0 15%;
+  max-width: 120px;
 }
 
 .ct-lt-imgcard {
-  width: 120px;
-  height: 140px;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
   object-fit: cover;
   border: 1px solid #ddd;
@@ -30,7 +32,7 @@
 
 /* Right Section */
 .bgt-ct-right {
-  flex: 0.85;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -41,12 +43,13 @@
   display: flex;
   justify-content: space-between;
   margin: 1rem 0;
+  flex-wrap: wrap;
 }
 
 .rt-top-left {
   display: flex;
   flex-direction: column;
-  font-size: 16px;
+  font-size: 1rem;
   color: #495057;
 }
 
@@ -58,11 +61,11 @@
 .top-lt-det {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .lt-det-price {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .lt-det-break {
@@ -80,14 +83,14 @@
 }
 
 .lt-det-stock {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: rgb(85, 180, 8);
   font-weight: 600;
   letter-spacing: 1px;
 }
 
 .rt-top-right {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #495057;
 }
@@ -96,11 +99,13 @@
 .ct-rt-bottom {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .rt-bottom-left {
   display: flex;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 /* Dropdown Styling */
@@ -109,7 +114,7 @@
   padding: 0.25rem 2rem 0.25rem 0.5rem;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #495057;
   background-color: #fff;
   appearance: none;
@@ -149,7 +154,7 @@
 }
 
 .qty-btn {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #495057;
   padding: 0.25rem 0.75rem;
   cursor: pointer;
@@ -162,14 +167,13 @@
 
 .qty-display {
   margin: 0 0.5rem;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .rt-bottom-right {
   display: flex;
   align-items: center;
   color: #495057;
-  /* font-weight: 600; */
 }
 
 .rt-bottom-right .bt-rt-save {
@@ -196,7 +200,7 @@
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .bgt-container {
-    flex-direction: column;
+    /* flex-direction: column; */
   }
 
   .bgt-ct-left {
@@ -212,28 +216,138 @@
 
   .bgt-ct-right {
     flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .ct-rt-top {
     flex-direction: column;
-    align-items: center;
+  }
+
+  .rt-top-left {
+    /* align-items: center; */
   }
 
   .rt-top-right {
     margin-top: 1rem;
+    text-align: left;
   }
 
   .ct-rt-bottom {
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
   }
 
   .rt-bottom-left {
-    flex-direction: column;
-    align-items: center;
+    /* flex-direction: column; */
+    align-items: baseline;
   }
 
   .rt-bottom-right {
     margin-top: 1rem;
+    /* align-items: center; */
+  }
+
+  .top-lt-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .top-lt-det {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .lt-det-price {
+    display: none;
+  }
+
+  .lt-det-break {
+    display: none;
+  }
+
+  .lt-det-rating,
+  .lt-det-stock {
+    display: inline-block;
+  }
+
+  .lt-det-rating {
+    display: flex;
+    margin-right: 0.5rem;
+    align-items: center;
+  }
+}
+
+/* Media Queries for Small Screens */
+@media (max-width: 576px) {
+  .bgt-container {
+    /* flex-direction: column; */
+    padding: 0.5rem;
+  }
+
+  .bgt-ct-left {
+    flex: 1;
+    text-align: center;
+    max-width: 100px;
+  }
+
+  .ct-lt-imgcard {
+    width: 80%;
+    height: auto;
+    max-height: 150px;
+  }
+
+  .bgt-ct-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ct-rt-top {
+    flex-direction: column;
+    margin: 0.5rem 0;
+  }
+
+  .rt-top-left {
+    /* align-items: center; */
+    font-size: 0.875rem;
+  }
+
+  .rt-top-right {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+
+  .rt-bottom-left {
+    /* flex-direction: column; */
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .rt-bottom-right {
+    margin-top: 0.5rem;
+    /* align-items: center; */
+  }
+
+  .rt-bottom-right .bt-rt-save {
+    margin: 0;
+    margin-right: 0.5em;
+  }
+
+  .btl-size-dropdown,
+  .btl-color-dropdown {
+    width: 100%;
+    padding: 0.25rem;
+  }
+
+  .btl-qty-selector {
+    justify-content: center;
+    /* margin-top: 0.5rem; */
   }
 }
