@@ -7,9 +7,17 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
 
 // "" google authentication ""
 export async function signupWithGoogle(){
-  window.location.href =
-    `${import.meta.env.VITE_SERVER_URL}/v1/api/auth/google`;
-  // signupWithGoogleCallback()
+  const popup = window.open(
+    `${import.meta.env.VITE_SERVER_URL}/v1/api/auth/google`,
+    "_blank"
+  );
+
+  const checkPopupClosed = setInterval(() => {
+    if (popup?.closed) {
+      clearInterval(checkPopupClosed);
+      window.location.reload(); // Reload to check login status
+    }
+  }, 1000);
 }
 export async function signupWithGoogleCallback() {
   await axios.get('/v1/api/auth/google/callback');
