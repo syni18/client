@@ -14,6 +14,7 @@ import { Cog, Search, ShoppingCart, User } from "lucide-react";
 import useCartStore from "../../redux/store/cartStore.js";
 import useUserStore from "../../redux/store/userStore.js";
 import SearchButton from "../../miniComponent/SearchButton.jsx";
+import logoImage from "../../assets/signature.png"; // Import your logo image
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -47,6 +48,16 @@ const Navigation = () => {
 
   const [dropdownVisible, setDropdownVisible] = useState(true);
   const [searchInput, setSearchInput] = useState("");
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleSearch = useCallback(async () => {
     if (!searchInput.trim()) return;
@@ -88,7 +99,15 @@ const Navigation = () => {
             data-initial={brandInitial}
             data-text={brandLogoText}
           >
-            {brandLogoText}
+            {isDesktop ? (
+              <img
+                src={logoImage}
+                alt="Brand Logo"
+                className="brand-logo-image"
+              />
+            ) : (
+              brandLogoText
+            )}
           </Link>
         </div>
         {/* Middle Section */}
@@ -107,12 +126,12 @@ const Navigation = () => {
         </div>
         {/* Right Section */}
         <div className="container-right">
-          <SearchButton 
+          <SearchButton
             searchInput={searchInput}
             setSearchInput={setSearchInput}
             handleSearch={handleSearch}
           />
-         
+
           {userRole === "admin" && (
             <div className="nav-console">
               <Cog />

@@ -192,3 +192,22 @@
     padding: 0 1rem;
   }
 }
+
+.brand-logo-image {
+  width: 150px;
+  height: auto;
+  display: block;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .brand-logo-image {
+    display: none;
+  }
+}
